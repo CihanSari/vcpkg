@@ -8,6 +8,7 @@ vcpkg_from_github(
         fix_openni2.patch
         fix-dependency-glfw3.patch
         fix_config_osx.patch
+        fix-clang.patch
 )
 
 file(COPY ${SOURCE_PATH}/src/win7/drivers/IntelRealSense_D400_series_win7.inf DESTINATION ${SOURCE_PATH})

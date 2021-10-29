@@ -1,0 +1,53 @@
+From dc88be977918f0c7d100c5287c9290dd5063f630 Mon Sep 17 00:00:00 2001
+From: Cihan Sari <cihansari86@gmail.com>
+Date: Fri, 29 Oct 2021 13:28:18 +0200
+Subject: [PATCH] clang changes
+
+---
+ src/mf/mf-uvc.cpp       | 2 +-
+ src/mf/mf-uvc.h         | 2 +-
+ src/win/win-helpers.cpp | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/src/mf/mf-uvc.cpp b/src/mf/mf-uvc.cpp
+index cf296829a..69514c6a2 100644
+--- a/src/mf/mf-uvc.cpp
++++ b/src/mf/mf-uvc.cpp
+@@ -1119,7 +1119,7 @@ namespace librealsense
+ 
+             check_connection();
+ 
+-            auto& elem = std::find_if(_streams.begin(), _streams.end(),
++            auto elem = std::find_if(_streams.begin(), _streams.end(),
+                 [&](const profile_and_callback& pac) {
+                 return (pac.profile == profile && (pac.callback));
+             });
+diff --git a/src/mf/mf-uvc.h b/src/mf/mf-uvc.h
+index ad0b35714..b2c3b3110 100644
+--- a/src/mf/mf-uvc.h
++++ b/src/mf/mf-uvc.h
+@@ -141,7 +141,7 @@ namespace librealsense
+             std::vector<stream_profile>             _profiles;
+             std::vector<frame_callback>             _frame_callbacks;
+             bool                                    _streaming = false;
+-            std::atomic<bool>                       _is_started = false;
++            std::atomic<bool>                       _is_started{ false };
+             std::wstring                            _device_id;
+         };
+ 
+diff --git a/src/win/win-helpers.cpp b/src/win/win-helpers.cpp
+index 643211fb6..97883c694 100644
+--- a/src/win/win-helpers.cpp
++++ b/src/win/win-helpers.cpp
+@@ -821,7 +821,7 @@ namespace librealsense
+             CString IDstr(camID);
+             // IVCAM_DLL string is left in librealsense to allow safe
+             // interoperability with existing tools like DCM
+-            lstr.Format(L"Global\\IVCAM_DLL_WINUSB_MUTEX%s", IDstr);
++            lstr.Format(L"Global\\IVCAM_DLL_WINUSB_MUTEX%s", &IDstr);
+             auto pSecDesc = make_allow_all_security_descriptor();
+             if (pSecDesc)
+             {
+-- 
+2.27.0.windows.1
+
